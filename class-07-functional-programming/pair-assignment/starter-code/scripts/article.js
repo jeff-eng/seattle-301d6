@@ -100,4 +100,6 @@
       }
     })
   };
+
+  module.Article = Article;
 })(window);
