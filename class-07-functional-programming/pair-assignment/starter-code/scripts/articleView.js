@@ -129,5 +129,14 @@
     $('#blog-stats .words').text(Article.numWordsAll());
   };
 
+  articleView.generateAuthorStats = function() {
+    var compile = Handlebars.compile($('#author-template').html());
+    Article.numWordsByAuthor().forEach(function (kv) {
+      $('.author-stats').append(compile(kv));
+      $('.articles').text(Article.all.length);
+      $('.words').text(Article.numWordsAll());
+    });
+  }
+
   module.articleView = articleView;
 })(window);
