@@ -59,14 +59,17 @@
     }
   };
 
+  function countArticleWords(articles) {
+    return articles.map(function(article) {
+      return article.body.split(/\s+/).length; //Grab the words from the `article` `body`.
+    }).reduce(function(a, b) {
+      return a + b; // Sum up all the values!
+    });
+  }
+
   // **DONE**: Chain together a `map` and a `reduce` call to get a rough count of all words in all articles.
   Article.numWordsAll = function() {
-    return Article.all.map(function(article) {
-      return article.body.split(/\s+/).length; //Grab the words from the `article` `body`.
-    })
-    .reduce(function(a, b) {
-      return a + b; // Sum up all the values!
-    })
+    return countArticleWords(Article.all);
   };
 
   // **DONE**: Chain together a `map` and a `reduce` call to produce an array of unique author names.
@@ -85,13 +88,15 @@
   };
 
   Article.numWordsByAuthor = function() {
-    // TODO: Transform each author string into an object with 2 properties: One for
+    // **DONE**: Transform each author string into an object with 2 properties: One for
     // the author's name, and one for the total number of words across the matching articles
     // written by the specified author.
     return Article.allAuthors().map(function(author) {
       return {
-        // name:
-        // numWords: someCollection.someArrayMethod().map(...).reduce(...), ...
+        name: author,// name:
+        numWords: countArticleWords(Article.all.filter(function(article) {
+          return article.author === author;
+        }))// numWords: someCollection.someArrayMethod().map(...).reduce(...), ...
       }
     })
   };
