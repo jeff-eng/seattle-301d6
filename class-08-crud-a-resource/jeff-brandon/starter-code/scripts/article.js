@@ -53,7 +53,7 @@
       [
         {
           'sql': 'INSERT INTO articles (title, category, author, authorUrl, publishedOn, body) VALUES (?, ?, ?, ?, ?, ?);',
-          'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body]
+          'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body, this.id]
         }
       ],
       callback
@@ -77,8 +77,10 @@
   Article.prototype.updateRecord = function(callback) {
     webDB.execute(
       [
-        // 'sql': '',
-        // 'data': [],
+        {
+        'sql': 'UPDATE articles SET title = ?, category = ?, author = ?, authorUrl = ?, publishedOn = ?, body = ? WHERE id = ?;',
+        'data': [this.title, this.category, this.author, this.authorUrl, this.publishedOn, this.body, this.id]
+        } 
       ],
       callback
     );
